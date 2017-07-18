@@ -4,6 +4,8 @@ Sebastian Ruder, Joachim Bingel, Isabelle Augenstein, Anders Søgaard (2017).
 [Sluice networks: Learning what to share between loosely related tasks](https://arxiv.org/abs/1705.08142). 
 arXiv preprint arXiv:1705.08142.
 
+![A Sluice Network with two tasks](sluice_network.png)
+
 ## Installation instructions
 
 The code works with Python 3.5. The main requirement is DyNet (and its 
