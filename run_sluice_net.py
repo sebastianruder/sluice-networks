@@ -56,8 +56,7 @@ def main(args):
 
     assert args.num_subspaces > 1 or args.constraint_weight == 0,\
         'Error: More than 1 subspace necessary for subspace constraint.'
-    assert args.constraint_weight != 0 and args.constrain_matrices or not\
-        (args.constraint_weight != 0 or args.constrain_matrices),\
+    assert args.constrain_matrices or args.constraint_weight == 0,\
         ('Error: When subspace constraint is specified, indices of matrices '
          'to be constrained need to be provided.')
     assert args.cross_stitch or args.constraint_weight == 0,\
@@ -77,7 +76,8 @@ def main(args):
         ('Error: %d task names provided but %d ids for pred layers given.' %
          (len(args.task_names), len(args.pred_layer)))
 
-    print('Using %s layer connections before FC layer...', flush=True)
+    print('Using %s layer connections before FC layer...' % args.layer_connect,
+          flush=True)
     if args.constraint_weight != 0:
         print('Using subspace constraint with constraint weight %.4f...'
               % args.constraint_weight)
