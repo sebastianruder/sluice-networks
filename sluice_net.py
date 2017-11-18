@@ -41,7 +41,7 @@ def load(params_file, model_file, args):
     model.set_indices(params['w2i'], params['c2i'], params['task2tag2idx'])
     model.predictors, model.char_rnn, model.wembeds, model.cembeds = \
         model.build_computation_graph(params['num_words'], params['num_chars'])
-    model.model.load(model_file)
+    model.model.populate(model_file)
     print('Model loaded from %s...' % model_file, flush=True)
     return model
 
@@ -324,8 +324,9 @@ class SluiceNetwork(object):
                                        in zip(output, y)])
                     lv = loss.value()
                     # sum the loss and the subspace constraint penalty
-                    combined_loss = loss + dynet.parameter(
-                        self.constraint_weight_param, update=False) * penalty
+                    constr_weight = dynet.nobackprop(dynet.parameter(
+                        self.constraint_weight_param))
+                    combined_loss = loss + constr_weight * penalty
                     total_loss += lv
                     total_penalty += penalty.value()
                     total_predicted += len(output)
@@ -405,7 +406,7 @@ class SluiceNetwork(object):
         # layer for the layer connection units
         layer_forward_sequences = []
         layer_backward_sequences = []
-        penalty = dynet.parameter(self.subspace_penalty, update=False)
+        penalty = dynet.nobackprop(dynet.parameter(self.subspace_penalty))
         for i in range(0, num_layers):
             forward_sequences = []
             backward_sequences = []
