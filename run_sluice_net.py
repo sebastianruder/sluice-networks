@@ -66,7 +66,7 @@ def main(args):
     assert args.h_layers > 1 or args.layer_connect != STITCH,\
         'Error: Layer-stitch units only work with more than one layer.'
     assert all([pred == args.h_layers for pred in args.pred_layer]) or not \
-        args.layer_stitch, ('Error: All predictions should take place at '
+        args.layer_connect == STITCH, ('Error: All predictions should take place at '
                             'final layer if layer-stitch units are used.')
     assert not any(x in args.constrain_matrices for x in [3, 7, 10]),\
         ('Error: Index 3/7/10 belongs to bias vectors, which are not '
