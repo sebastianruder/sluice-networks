@@ -162,7 +162,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     assert os.path.exists(args.original_folder), ('Error: %s does not exist.'
                                                   % args.original_folder)
-    assert os.path.exists(args.conll_formatted), ('Error: %s does not exist.'
+    assert os.path.exists(args.conll_folder), ('Error: %s does not exist.'
                                                   % args.conll_formatted)
     convertOntonotesChunks(original_folder='original-ontonotes-5.0',
                            conll_folder='conll-formatted-ontonotes-5.0')
